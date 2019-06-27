@@ -37,6 +37,38 @@ sf_dict = {'Ah': {1,14}, 'Kh': {2}, 'Qh': {3}, 'Jh': {4}, 'Th': {5}, '9h': {6}, 
            '2c': {43}, 'As': {46, 59}, 'Ks': {47}, 'Qs': {48}, 'Js': {49}, 'Ts': {50}, '9s': {51}, '8s': {52}, '7s': {53}, '6s': {54},
            '5s': {55}, '4s': {56}, '3s': {57}, '2s': {58}}
 
+
+# Function to intake and validate user inputs
+def budget_validation(prompt, bankroll):
+    while True:
+        try:
+            value = int(input(prompt))
+        except ValueError:
+            print ("Sorry, please enter a number")
+            continue
+
+        if value > bankroll:
+            print ("Sorry, you don\'t have enough to make that bet")
+            continue
+        else:
+            break
+    return value
+
+def raise_validation(prompt, ante, bankroll):
+    while True:
+        if (ante * 3) > bankroll:
+            time.sleep(1)
+            print("Sorry, you don\'t have enough chips to raise")
+            time.sleep(2)
+            all_in = "n"
+            break
+        else:
+            all_in = input(prompt)
+            break
+
+    return all_in
+
+
 # Function to deal hand for any number of players
 def deal_player(deck):
     player_hand = []
