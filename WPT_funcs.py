@@ -367,7 +367,7 @@ def best_hand(hand):
         hand_name = "Quads"
         showdown_strength = 3
         final_hand_bonus = 40
-        final_hand_keys =[common_cards(hand)[0][0], common_cards(hand)[0][0], common_cards(hand)[0][0], common_cards(hand)[0][0], common_cards(hand)[1][0]]
+        final_hand_keys =[common_cards(hand)[0][0], common_cards(hand)[0][0], common_cards(hand)[0][0], common_cards(hand)[0][0], min([common_cards(hand)[1][0], common_cards(hand)[2][0]])]
         showdown_top = final_hand_keys[0]
         showdown_kicker = final_hand_keys[1] 
         showdown_kicker2 = final_hand_keys[2]
