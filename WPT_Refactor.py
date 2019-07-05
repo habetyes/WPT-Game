@@ -3,12 +3,12 @@ import operator
 import collections
 import time
 from WPT_funcs import *
-# from WPT_funcs import board
 
 # Initialize bankroll amount
-bankroll = 300
 
-play = input("Welcome to WPT! Here\'s $300 to start. Would you like to play a hand? ")
+bankroll = int(input("How much would you like to buy in for?"))
+
+play = input(f'Welcome to WPT! Here\'s ${bankroll} to start. Would you like to play a hand?')
 
 while play == "y":
 
@@ -49,7 +49,8 @@ while play == "y":
     time.sleep(2)
 
     # Evaluate hole card bonus result and adjusts bankroll accordingly
-    hole_pay = hole_bonus(player_hand)
+    if hole_bonus_bet > 0:
+        hole_pay = hole_bonus(player_hand)
   
     if hole_pay > 0:
         bankroll += ((hole_bonus_bet * hole_pay) + hole_bonus_bet)
@@ -69,7 +70,8 @@ while play == "y":
     time.sleep(2)
 
     # Evaluate Final Hand Bonus
-    final_pay = best_hand(final_hand)["bonus"]
+    if final_bonus_bet > 0:
+        final_pay = best_hand(final_hand)["bonus"]
 
     if final_pay > 0:
         bankroll += ((final_bonus_bet * final_pay) + final_bonus_bet)
@@ -112,4 +114,8 @@ while play == "y":
     print(f'Post Hand Complete Bankroll: ${bankroll}')
     time.sleep(1)
 
-    play = input("Would you like to play another hand? ")
+    if bankroll <= 0:
+        print("You are out of Money!")
+        play = "n"
+    else:
+        play = input("Would you like to play another hand? ")
