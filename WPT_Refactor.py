@@ -64,6 +64,15 @@ while play == "y":
     time.sleep(2)
     board = deal_game(deck)
 
+    # ===================This will be how the game is dealt after making the WPT_Func Update==============
+    # board = []
+    # deal_game(deck, board, 3)
+    # time.sleep(2)
+    # deal_game(deck, board, 1)
+    # time.sleep(2)
+    # deal_game(deck, board, 1)
+
+
     # Identify final hands for player and dealer
     final_hand = showdown_hand(player_hand, board)
     dealer_final_hand = showdown_hand(dealer_hand, board)
