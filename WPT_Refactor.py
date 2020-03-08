@@ -3,6 +3,7 @@ import operator
 import collections
 import time
 from Poker import *
+import holdem_calc
 
 # Initialize bankroll amount
 
@@ -32,10 +33,15 @@ while play == "1":
     dealer_hand = []
     deal_player(deck, dealer_hand)
 
+    # Calculate Pre-Flop Win Percentage    
+    unknown_hand = ['?', '?']
+    pre_flop_hands = player_hand + unknown_hand
+
+
     # Show player hand and ask for a raise
     print(f'Player: {player_hand}')
-    time.sleep(2)
 
+    
     # Evaluate hole card bonus result and adjusts bankroll accordingly
     if hole_bonus_bet > 0:
         hole_pay = hole_bonus(player_hand)
@@ -48,6 +54,13 @@ while play == "1":
         print(f'Post Hole Bonus Bankroll: ${bankroll}')
         time.sleep(1)
   
+    # Display Pre-Flop Win Percentage 
+    print('Calculating Win Percentage')
+    win_pct = holdem_calc.calculate(None,False,100,None,pre_flop_hands,False)[1]
+    win_pct = format(win_pct, ".2%")
+    print(f'Win Percentage: {win_pct}')
+    time.sleep(1.5)
+
     all_in = raise_validation(f'Would you like to raise? \n[1]: Yes\n[2]: No\n', ante, bankroll)
     if all_in =="1":
         time.sleep(1)
@@ -60,12 +73,15 @@ while play == "1":
 
     # Show dealer hand after player raises
     print(f'Dealer: {dealer_hand}')
-    time.sleep(2)
-        
+    
+    # Calculate Win Percentage    
+    combo_hands = player_hand + dealer_hand
+    win_pct = holdem_calc.calculate(None,False,20000,None,combo_hands,False)[1]
+    win_pct = format(win_pct, ".2%")
 
     # Initialize board and deal board cards
     board = []
-    print(f'Player: {player_hand} vs. Dealer: {dealer_hand}')
+    print(f'Player: {player_hand} vs. Dealer: {dealer_hand}: Win Pct: {win_pct} ')
     time.sleep(2)
     deal_game(deck, board, 3)
     time.sleep(3)
@@ -129,7 +145,8 @@ while play == "1":
 
 
         """
-        Add Odds of player winning on Player vs Dealer printout
+        Full House edge case: 3,3,3,4,4,4,K,K will show as 4s over 3s rather than 4s over Ks
         add available budget after each bet
         add warning that bet amount will not allow a player to raise
+        write showdown function for poker.py
         """

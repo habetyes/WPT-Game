@@ -507,6 +507,22 @@ def common_cards(hand, wild_type=None):
     common = c.most_common(7)
     return common
 
+def kickers(hand, n, wild_type=None):
+    """
+    n: For two-pair enter 2, for quads enter 1
+    """
+    if wild_type != None and (len(wild_type(hand)["static"]) != 0):
+        hand = wild_type(hand)["static"]
+    else:
+        pass
+
+    card_sort = sorted(cards_to_rank[x[0]] for x in hand)
+    c = collections.Counter([x for x in card_sort])
+    common = c.most_common(7)
+    kicker_values = [x[0] for x in common[n:]]
+    kickers_keys = sorted(cards_to_rank[x[0]] for x in hand if cards_to_rank[x[0]] in kicker_values)
+    return sorted(kickers_keys)
+
 def is_five_oak(hand, wild_type=None):
     """Receives the result from common_cards function to check for quads"""
     if wild_type != None:
@@ -734,7 +750,7 @@ def best_hand(hand, wild_type=None):
         showdown_strength = 9
         final_hand_bonus = 0
         wilds = wild_hand["wild_cards"]
-        final_hand_keys =[common_cards(hand, wild_type)[0][0], common_cards(hand, wild_type)[0][0], common_cards(hand, wild_type)[1][0], common_cards(hand, wild_type)[1][0], common_cards(hand, wild_type)[2][0]]
+        final_hand_keys =[common_cards(hand, wild_type)[0][0], common_cards(hand, wild_type)[0][0], common_cards(hand, wild_type)[1][0], common_cards(hand, wild_type)[1][0], kickers(hand, 2, wild_type)[0]]
         showdown_top = final_hand_keys[0]
         showdown_kicker = final_hand_keys[1] 
         showdown_kicker2 = final_hand_keys[2]
