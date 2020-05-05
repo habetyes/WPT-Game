@@ -145,7 +145,6 @@ while play == "1":
 
 
         """
-        Full House edge case: 3,3,3,4,4,4,K,K will show as 4s over 3s rather than 4s over Ks
         add available budget after each bet
         add warning that bet amount will not allow a player to raise
         write showdown function for poker.py

@@ -690,7 +690,7 @@ def best_hand(hand, wild_type=None):
         showdown_strength = 5
         final_hand_bonus = 8
         wilds = wild_hand["wild_cards"]
-        final_hand_keys = [common_cards(hand, wild_type)[0][0], common_cards(hand, wild_type)[0][0], common_cards(hand, wild_type)[0][0], common_cards(hand, wild_type)[1][0], common_cards(hand, wild_type)[1][0]]
+        final_hand_keys = [common_cards(hand, wild_type)[0][0], common_cards(hand, wild_type)[0][0], common_cards(hand, wild_type)[0][0], min(common_cards(dealer_final_hand), key = lambda t: t[1])[0], min(common_cards(dealer_final_hand), key = lambda t: t[1])[0]]
         showdown_top = final_hand_keys[0]
         showdown_kicker = final_hand_keys[1] 
         showdown_kicker2 = final_hand_keys[2]
